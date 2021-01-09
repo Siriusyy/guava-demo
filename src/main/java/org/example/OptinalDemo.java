@@ -22,7 +22,8 @@ public class OptinalDemo {
     @Test(expected = NullPointerException.class)
     public void testOf2() {
         HashMap<String, Integer> map = new HashMap<>();
-        Optional<Integer> absent = Optional.of(map.get("1"));
+        //直接抛异常
+        Optional.of(map.get("1"));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -54,7 +55,7 @@ public class OptinalDemo {
         Assert.assertEquals(0,absent.asSet().size());
         Optional<Integer> var = Optional.of(3);
         Set<Integer> set = var.asSet();
-        Assert.assertEquals(0,set.size());
+        Assert.assertEquals(1,set.size());
         for (int i : set) {
             Assert.assertEquals(3,i);
         }
