@@ -1,4 +1,4 @@
-package org.example;
+package org.example.basic;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;

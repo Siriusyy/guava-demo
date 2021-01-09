@@ -1,7 +1,8 @@
-package org.example;
+package org.example.basic;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.collect.ComparisonChain;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -38,6 +39,11 @@ public class ObjectsDemo {
             return map;
         }
 
+
+        /**
+         * toStringHelper已经移到MoreObjects中
+         * @return
+         */
         @Override
         public String toString() {
             return MoreObjects.toStringHelper(this).add("str", getStr()).add("array", getInts())
@@ -49,6 +55,14 @@ public class ObjectsDemo {
         public int hashCode() {
             return Objects.hashCode(ints, map, str);
         }
+
+        public int compareTo(A b){
+            return ComparisonChain.start().compare(this.str,b.str)
+                    .compare(this.ints.length,b.ints.length)
+                    .compare(this.map.size(),b.map.size())
+                    .result();
+        }
+
     }
 
     @Test
@@ -67,6 +81,15 @@ public class ObjectsDemo {
 
         System.out.println(a.toString());
         System.out.println(a.getInts());
+    }
+
+    @Test
+    public void testComparison(){
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("1", 1);
+        A a = new A("aaa", new int[]{1, 2, 3}, map);
+        A b = new A("hello", new int[]{1, 2, 3}, map);
+        System.out.println(a.compareTo(b));
     }
 
 }

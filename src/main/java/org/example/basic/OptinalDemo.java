@@ -1,4 +1,4 @@
-package org.example;
+package org.example.basic;
 
 import com.google.common.base.Optional;
 import org.junit.Assert;
