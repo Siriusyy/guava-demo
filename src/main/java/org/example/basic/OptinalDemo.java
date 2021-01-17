@@ -61,4 +61,17 @@ public class OptinalDemo {
         }
     }
 
+    /**
+     * 这个应该就是最常用的方法
+     */
+    @Test
+    public void testFromNullable(){
+        Optional<Integer> possible = Optional.fromNullable(null);  //创建允许null值的Optional
+        if(possible.isPresent()){
+            System.out.println(possible.get());
+        }else{
+            System.out.println("error");
+        }
+    }
+
 }

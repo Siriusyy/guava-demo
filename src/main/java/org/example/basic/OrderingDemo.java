@@ -3,12 +3,14 @@ package org.example.basic;
 import com.google.common.base.Function;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Ordering;
+import com.google.common.primitives.Ints;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -34,15 +36,13 @@ public class OrderingDemo {
         @Override
         public String toString() {
             return MoreObjects.toStringHelper(this).add("name",name).add("age",age)
-                    .add("gender", new java.util.function.Function<Integer,String>() {
-                        @Override
-                        public String apply(Integer integer) {
-                            if (gender == 0){
-                                return "男";
-                            }
-                            return "女";
+                    //滥用了
+                    .add("gender", ((java.util.function.Function<Integer, String>) integer -> {
+                        if (gender == 0) {
+                            return "男";
                         }
-                    }.apply(age))
+                        return "女";
+                    }).apply(age))
                     .add("idnumber",idnumber)
                     .toString();
         }
@@ -99,4 +99,28 @@ public class OrderingDemo {
         Assert.assertTrue(Ordering.natural().onResultOf(function).isOrdered(copy));
 
     }
+
+    public class PeoplAgeComparator implements Comparator<People> {
+        @Override
+        public int compare(People p1, People p2) {
+            return Ints.compare(p1.age, p2.age);
+        }
+    }
+
+    public class PeopleNameComparator implements Comparator<People> {
+        @Override
+        public int compare(People p1, People p2) {
+            Ordering<Object> ordering = Ordering.usingToString();
+            return ordering.compare(p1.name,p2.name);
+        }
+    }
+    @Test
+    public void test(){
+        Ordering<People> ordering = Ordering.from(new PeoplAgeComparator()).compound(new PeopleNameComparator());
+        List<People> copy = ordering.sortedCopy(list);
+        for (People people : copy) {
+            System.out.println(people);
+        }
+    }
+
 }

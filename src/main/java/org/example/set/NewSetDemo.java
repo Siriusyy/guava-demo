@@ -97,6 +97,9 @@ public class NewSetDemo {
         System.out.println(inverse.get("7"));
     }
 
+    /**
+     * 两个键映射一个值
+     */
     @Test
     public void testTable(){
         HashBasedTable<Integer, Integer, String> table = HashBasedTable.create();

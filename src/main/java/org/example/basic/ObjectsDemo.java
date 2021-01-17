@@ -10,6 +10,9 @@ import java.util.HashMap;
 
 public class ObjectsDemo {
     @Test
+    /**
+     * 可以判断null等
+     */
     public void testEqual() {
         Assert.assertFalse((Objects.equal(null, "hello")));
         Assert.assertTrue((Objects.equal(null, null)));
