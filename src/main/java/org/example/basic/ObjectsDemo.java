@@ -45,11 +45,14 @@ public class ObjectsDemo {
 
         /**
          * toStringHelper已经移到MoreObjects中
+         *
          * @return
          */
         @Override
         public String toString() {
-            return MoreObjects.toStringHelper(this).add("str", getStr()).add("array", getInts())
+            return MoreObjects.toStringHelper(this)
+                    .add("str", getStr())
+                    .add("array", getInts())
                     .add("map", getMap())
                     .toString();
         }
@@ -59,10 +62,11 @@ public class ObjectsDemo {
             return Objects.hashCode(ints, map, str);
         }
 
-        public int compareTo(A b){
-            return ComparisonChain.start().compare(this.str,b.str)
-                    .compare(this.ints.length,b.ints.length)
-                    .compare(this.map.size(),b.map.size())
+        public int compareTo(A b) {
+            return ComparisonChain.start()
+                    .compare(this.str, b.str)
+                    .compare(this.ints.length, b.ints.length)
+                    .compare(this.map.size(), b.map.size())
                     .result();
         }
 
@@ -87,7 +91,7 @@ public class ObjectsDemo {
     }
 
     @Test
-    public void testComparison(){
+    public void testComparison() {
         HashMap<Object, Object> map = new HashMap<>();
         map.put("1", 1);
         A a = new A("aaa", new int[]{1, 2, 3}, map);
